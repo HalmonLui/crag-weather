@@ -15,6 +15,7 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 import { fetchWeatherApi } from 'openmeteo';
+import WeatherIcon from './components/weathericon';
 
 // Rumney, NH: 43.802174, -71.830984
 
@@ -129,7 +130,7 @@ export default function Home() {
             <Tr>
               {
                 data ? (Array.from(data.daily.weatherCode).map((code, index) => (
-                    <Th>{code.toString()}</Th>
+                    <Th><WeatherIcon weatherCode={code.toString()}/></Th>
                 ))) : null 
               }
             </Tr>
