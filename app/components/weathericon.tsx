@@ -45,7 +45,7 @@ const WeatherIcon: React.FC<WeatherIconProps> = ({ weatherCode }) => {
   const iconUrl = iconMapping[weatherCode];
 
   // Render the icon
-  return <Image src={iconUrl} alt={`Weather Icon for ${weatherCode}`} />;
+  return <Image height={40} width={40} src={iconUrl} alt={`Weather Icon for ${weatherCode}`} />;
 };
 
 export default WeatherIcon;
