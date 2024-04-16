@@ -106,7 +106,7 @@ export default function Home() {
         </p>
       </div>
       
-      <p>Rumney</p>
+      <p>Rumney, NH</p>
       <TableContainer>
         <Table variant='simple' size='sm'>
           <Thead>
@@ -122,7 +122,7 @@ export default function Home() {
             <Tr>
             {
                 data ? (Array.from(data.daily.temperature2mMax).map((maxTemp, index) => (
-                    <Th>{Math.round(maxTemp)} | {Math.round(data.daily.temperature2mMin[index])}</Th>
+                    <Th>{Math.round(maxTemp)}° | {Math.round(data.daily.temperature2mMin[index])}°</Th>
                 ))) : null 
               }
             </Tr>
@@ -130,6 +130,13 @@ export default function Home() {
               {
                 data ? (Array.from(data.daily.weatherCode).map((code, index) => (
                     <Th>{code.toString()}</Th>
+                ))) : null 
+              }
+            </Tr>
+            <Tr>
+              {
+                data ? (Array.from(data.daily.precipitationProbabilityMax).map((precipMax, index) => (
+                    <Th>{Math.round(precipMax)}%</Th>
                 ))) : null 
               }
             </Tr>
