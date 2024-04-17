@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import { useState, useEffect } from 'react'
 import { fetchWeatherApi } from 'openmeteo';
 import WeatherTable from './components/WeatherTable';
+import { Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 
 // Rumney, NH: 43.802174, -71.830984
 // Farley, MA: 42.597118, -72.446154
@@ -85,6 +86,12 @@ export default function Home() {
     
   }, [])
 
+  // Function to format date without year
+  function formatDate(date: Date) {
+    const options = { weekday: 'short', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString('en-US', options);
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -92,19 +99,46 @@ export default function Home() {
           Crag Weather
         </p>
       </div>
-      
-      <p>Rumney, NH</p>
-      {data && <WeatherTable weatherData={weatherDataArray[0]} />}
-      <p>Farley, MA</p>
-      {data && <WeatherTable weatherData={weatherDataArray[1]} />}
-      <p>Crow Hill, MA</p>
-      {data && <WeatherTable weatherData={weatherDataArray[2]} />}
-      <p>Lynn Woods, MA</p>
-      {data && <WeatherTable weatherData={weatherDataArray[3]} />}
-      <p>Lincoln Woods, RI</p>
-      {data && <WeatherTable weatherData={weatherDataArray[4]} />}
-      <p>Shawangunk, NY</p>
-      {data && <WeatherTable weatherData={weatherDataArray[5]} />}
+      {weatherDataArray && (
+        <>
+        <div className={styles.tablediv}>
+          <p></p>
+          <Table variant='simple' size='sm'>
+            <Thead>
+              <Tr>
+                {weatherDataArray[0].daily.time.map((date, index) => (
+                  <Th key={index}>{formatDate(date)}</Th>
+                ))}
+              </Tr>
+            </Thead>
+          </Table>
+        </div>
+        <div className={styles.tablediv}>
+          <p>Rumney, NH</p>
+          <WeatherTable weatherData={weatherDataArray[0]} />
+        </div>
+        <div className={styles.tablediv}>
+          <p>Farley, MA</p>
+          <WeatherTable weatherData={weatherDataArray[1]} />
+        </div>
+        <div className={styles.tablediv}>
+          <p>Crow Hill, MA</p>
+          <WeatherTable weatherData={weatherDataArray[2]} />
+        </div>
+        <div className={styles.tablediv}>
+          <p>Lynn Woods, MA</p>
+          <WeatherTable weatherData={weatherDataArray[3]} />
+        </div>
+        <div className={styles.tablediv}>
+          <p>Lincoln Woods, RI</p>
+          <WeatherTable weatherData={weatherDataArray[4]} />
+        </div>
+        <div className={styles.tablediv}>
+          <p>Shawangunk, NY</p>
+          <WeatherTable weatherData={weatherDataArray[5]} />
+        </div>
+      </>
+      )}
     </main>
   );
 }

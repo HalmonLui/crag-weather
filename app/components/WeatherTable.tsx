@@ -25,18 +25,18 @@ const WeatherTable: React.FC<WeatherTableProps> = ({
 
   return (
     <Table variant='simple' size='sm'>
-      <Thead>
+      {/* <Thead>
         <Tr>
           {dates.map((date, index) => (
             <Th key={index}>{formatDate(date)}</Th>
           ))}
         </Tr>
-      </Thead>
+      </Thead> */}
       <Tbody>
         <Tr>
           {Array.from(maxTemperatures).map((maxTemp, index) => (
             <Th key={index}>
-              {Math.round(maxTemp)}° | {Math.round(minTemperatures[index])}°
+              {Math.round(maxTemp)}°| {Math.round(minTemperatures[index])}°
             </Th>
           ))}
         </Tr>
