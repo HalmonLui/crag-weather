@@ -1,13 +1,16 @@
 import React from 'react';
-import { Table, Thead, Tbody, Tr, Th } from '@chakra-ui/react';
+import styles from "../page.module.css";
+import { Table, Thead, Tbody, Tr, Th, Card, CardBody } from '@chakra-ui/react';
 import WeatherIcon from './weathericon';
 
 interface WeatherTableProps {
-  weatherData: any;
+    location: string,
+    weatherData: any;
 }
 
 const WeatherTable: React.FC<WeatherTableProps> = ({
-  weatherData,
+    location,
+    weatherData,
 }) => {
 
     const dates = weatherData.daily.time;
@@ -28,34 +31,39 @@ const WeatherTable: React.FC<WeatherTableProps> = ({
   }
 
   return (
-    <Table variant='simple' size='sm'>
-      {/* <Thead>
-        <Tr>
-          {dates.map((date, index) => (
-            <Th key={index}>{formatDate(date)}</Th>
-          ))}
-        </Tr>
-      </Thead> */}
-      <Tbody>
-        <Tr>
-          {Array.from(maxTemperatures).map((maxTemp: number, index: number) => (
-            <Th key={index}>
-              {Math.round(maxTemp)}°| {Math.round(minTemperatures[index])}°
-            </Th>
-          ))}
-        </Tr>
-        <Tr>
-          {Array.from(weatherCode).map((code, index) => (
-            <Th key={index}><WeatherIcon weatherCode={code}/></Th>
-          ))}
-        </Tr>
-        <Tr>
-          {Array.from(precipitationProbabilityMax).map((precipMax, index) => (
-            <Th key={index}>{Math.round(precipMax)}%</Th>
-          ))}
-        </Tr>
-      </Tbody>
-    </Table>
+    <Card className={styles.weathercard} size='sm'>
+        <CardBody className={styles.tablediv}>
+            <p className={styles.tabletitle}>{location}</p>
+            <Table variant='simple' size='sm'>
+                {/* <Thead>
+                    <Tr>
+                    {dates.map((date, index) => (
+                        <Th key={index}>{formatDate(date)}</Th>
+                    ))}
+                    </Tr>
+                </Thead> */}
+                <Tbody>
+                    <Tr>
+                    {Array.from(maxTemperatures).map((maxTemp: number, index: number) => (
+                        <Th key={index}>
+                        {Math.round(maxTemp)}°| {Math.round(minTemperatures[index])}°
+                        </Th>
+                    ))}
+                    </Tr>
+                    <Tr>
+                    {Array.from(weatherCode).map((code, index) => (
+                        <Th key={index}><WeatherIcon weatherCode={code}/></Th>
+                    ))}
+                    </Tr>
+                    <Tr>
+                    {Array.from(precipitationProbabilityMax).map((precipMax, index) => (
+                        <Th key={index}>{Math.round(precipMax)}%</Th>
+                    ))}
+                    </Tr>
+                </Tbody>
+            </Table>
+        </CardBody>
+    </Card>
   );
 };
 

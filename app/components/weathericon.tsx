@@ -39,9 +39,9 @@ const WeatherIcon: React.FC<WeatherIconProps> = ({ weatherCode }) => {
     73: lightSnowIcon, // moderate snow
     75: heavySnowIcon, // heavy snow
     77: partlycloudyIcon, // snow grains
-    80: partlycloudyIcon, // slight rain
-    81: partlycloudyIcon, // moderate rain
-    82: partlycloudyIcon, // violent rain
+    80: lightRainIcon, // slight rain
+    81: heavyRainIcon, // moderate rain
+    82: heavyRainIcon, // violent rain
     85: lightSnowIcon, // slight snow
     86: heavySnowIcon, // heavy snow
     95: thunderstormIcon, // thunderstorm

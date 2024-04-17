@@ -1,10 +1,13 @@
 .main {
+  background-color: white;
+  color: #242747;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 6rem 20% 6rem 20%;
   min-height: 100vh;
+  overflow-x: scroll;
 }
 
 .description {
@@ -29,15 +32,58 @@
   position: relative;
   margin: 0;
   padding: 1rem;
-  background-color: rgba(var(--callout-rgb), 0.5);
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-  border-radius: var(--border-radius);
+  background-color: #ccd7f1;
+  border-left: 5px solid #485dbf;
+  border-radius: 5px;
+}
+
+.weathercard {
+  margin: 0.25rem;
+  position: relative;
+  border: 1px solid lightgray !important;
+}
+
+.stickyweathercard {
+  position: fixed !important;
+  margin: .25rem 20% .25rem 20%;
+  top: 0;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+#dates {
+  background: #485dbf;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #809cda, #485dbf);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #809cda, #485dbf); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border: 1px solid #627ccf;
+}
+
+#dates tr {
+  border: none;
+  background: transparent;
+}
+
+#dates th {
+  color: white;
 }
 
 .tablediv {
   display: flex;
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.tablediv table {
+  width: 100%;
+  table-layout: fixed; /* Ensure equal column widths */
+  border-collapse: collapse;
+}
+
+.tabletitle {
+  font-size: 12px;
+  width: auto;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 .tablediv p {
@@ -45,8 +91,21 @@
   width: 6rem;
 }
 
-.tablediv Th {
-  width: 5rem;
+.tablediv th {
+  width: 1rem;
+  font-weight: 450;
+}
+
+.tabletitle {
+  min-width: 5rem;
+  padding: 2px;
+  position: sticky;
+  left: 0;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 /* Enable hover only on non-touch devices */
@@ -69,32 +128,14 @@
 
 /* Mobile */
 @media (max-width: 700px) {
-  .content {
-    padding: 4rem;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    margin-bottom: 120px;
-    max-width: 320px;
-    text-align: center;
-  }
-
-  .card {
-    padding: 1rem 2.5rem;
-  }
-
-  .card h2 {
-    margin-bottom: 0.5rem;
-  }
-
-  .center {
-    padding: 8rem 0 6rem;
-  }
-
-  .center::before {
-    transform: none;
-    height: 300px;
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin-top: 5rem;
+    min-height: 100vh;
   }
 
   .description {
@@ -120,52 +161,13 @@
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(
-      to bottom,
-      rgba(var(--background-start-rgb), 1),
-      rgba(var(--callout-rgb), 0.5)
-    );
+    background: white;
     background-clip: padding-box;
     backdrop-filter: blur(24px);
   }
 
-  .description div {
-    align-items: flex-end;
-    pointer-events: none;
-    inset: auto 0 0;
-    padding: 2rem;
-    height: 200px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background-end-rgb)) 40%
-    );
-    z-index: 1;
-  }
-}
-
-/* Tablet and Smaller Desktop */
-@media (min-width: 701px) and (max-width: 1120px) {
-  .grid {
-    grid-template-columns: repeat(2, 50%);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .vercelLogo {
-    filter: invert(1);
-  }
-
-  .logo {
-    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
+  #dates {
+    position: sticky;
+    top: 2rem;
   }
 }

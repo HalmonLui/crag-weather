@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { useState, useEffect } from 'react'
 import { fetchWeatherApi } from 'openmeteo';
 import WeatherTable from './components/WeatherTable';
-import { Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { Card, CardBody, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 
 // Rumney, NH: 43.802174, -71.830984
 // Farley, MA: 42.597118, -72.446154
@@ -18,8 +18,18 @@ export default function Home() {
 
   const [data, setData] = useState<any>(null)
   const [weatherDataArray, setWeatherDataArray] = useState<any>(null)
+  const [isSticky, setIsSticky] = useState(false);
  
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const threshold = 180; // Adjust the threshold as needed
+
+      setIsSticky(scrollPosition > threshold);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
     async function fetchWeather() {
       // Weather vvv
       const params = {
@@ -83,7 +93,9 @@ export default function Home() {
     }
 
     fetchWeather();
-    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [])
 
   // Function to format date without year
@@ -105,42 +117,27 @@ export default function Home() {
       </div>
       {weatherDataArray && (
         <>
-        <div className={styles.tablediv}>
-          <p></p>
-          <Table variant='simple' size='sm'>
-            <Thead>
-              <Tr>
-                {weatherDataArray[0].daily.time.map((date: Date, index: number) => (
-                  <Th key={index}>{formatDate(date)}</Th>
-                ))}
-              </Tr>
-            </Thead>
-          </Table>
-        </div>
-        <div className={styles.tablediv}>
-          <p>Rumney, NH</p>
-          <WeatherTable weatherData={weatherDataArray[0]} />
-        </div>
-        <div className={styles.tablediv}>
-          <p>Farley, MA</p>
-          <WeatherTable weatherData={weatherDataArray[1]} />
-        </div>
-        <div className={styles.tablediv}>
-          <p>Crow Hill, MA</p>
-          <WeatherTable weatherData={weatherDataArray[2]} />
-        </div>
-        <div className={styles.tablediv}>
-          <p>Lynn Woods, MA</p>
-          <WeatherTable weatherData={weatherDataArray[3]} />
-        </div>
-        <div className={styles.tablediv}>
-          <p>Lincoln Woods, RI</p>
-          <WeatherTable weatherData={weatherDataArray[4]} />
-        </div>
-        <div className={styles.tablediv}>
-          <p>Shawangunk, NY</p>
-          <WeatherTable weatherData={weatherDataArray[5]} />
-        </div>
+        <Card id={styles.dates} className={isSticky ? `${styles.weathercard} ${styles.stickyweathercard}` : styles.weathercard}>
+          <CardBody className={styles.tablediv}>
+            <p className={styles.tabletitle} style={{"background": "transparent"}}></p>
+            <Table variant='simple' size='sm'>
+              <Thead>
+                <Tr id={styles.dates}>
+                  {weatherDataArray[0].daily.time.map((date: Date, index: number) => (
+                    <Th key={index}>{formatDate(date)}</Th>
+                  ))}
+                </Tr>
+              </Thead>
+            </Table>
+          </CardBody>
+        </Card>
+
+        <WeatherTable location={"Rumney, NH"} weatherData={weatherDataArray[0]} />
+        <WeatherTable location={"Farley, MA"} weatherData={weatherDataArray[1]} />
+        <WeatherTable location={"Crow Hill, NH"} weatherData={weatherDataArray[2]} />
+        <WeatherTable location={"Lynn Woods, MA"} weatherData={weatherDataArray[3]} />
+        <WeatherTable location={"Lincoln Woods, RI"} weatherData={weatherDataArray[4]} />
+        <WeatherTable location={"Shawangunk, NY"} weatherData={weatherDataArray[5]} />
       </>
       )}
     </main>
