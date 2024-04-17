@@ -16,19 +16,41 @@ import { Card, CardBody, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 
 export default function Home() {
 
-  const [data, setData] = useState<any>(null)
   const [weatherDataArray, setWeatherDataArray] = useState<any>(null)
-  const [isSticky, setIsSticky] = useState(false);
+  const [isSticky, setIsSticky] = useState(true);
+  const [placeholderHeight, setPlaceholderHeight] = useState(0);
+  const [isMobileView, setIsMobileView] = useState(false);
  
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const threshold = 180; // Adjust the threshold as needed
-
-      setIsSticky(scrollPosition > threshold);
+      const datesElement = document.getElementById('dates');
+      if (datesElement) {
+        const datesOffset = datesElement.offsetTop; // Get the offset from the top of the document
+        const datesHeight = datesElement.offsetHeight; // Get the height of the dates element
+        setIsSticky(scrollPosition > datesOffset); // Set sticky state based on scroll position and element offset
+        setPlaceholderHeight(datesHeight); // Update placeholder height
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+
+    // Measure the height of the sticky date card when it becomes sticky
+    const datesElement = document.getElementById('dates');
+    if (datesElement) {
+      const stickyCardHeight = datesElement.offsetHeight;
+      // Set the height of the placeholder element
+      setPlaceholderHeight(stickyCardHeight);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 700);
+    };
+
+    handleResize(); // Set initial view
+    window.addEventListener('resize', handleResize);
 
     async function fetchWeather() {
       // Weather vvv
@@ -95,6 +117,7 @@ export default function Home() {
     fetchWeather();
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
     };
   }, [])
 
@@ -105,7 +128,13 @@ export default function Home() {
       month: 'short',
       day: 'numeric',
     };
-    return new Date(date).toLocaleDateString('en-US', options);
+    let formattedDate = new Date(date).toLocaleDateString('en-US', options);
+
+    if (isMobileView) {
+      formattedDate = formattedDate.replace(/,/g, '');
+    }
+
+    return formattedDate;
   }
 
   return (
@@ -117,6 +146,8 @@ export default function Home() {
       </div>
       {weatherDataArray && (
         <>
+        {/* Placeholder for the sticky date card */}
+        <div style={{ height: isSticky ? placeholderHeight : 0 }} />
         <Card id={styles.dates} className={isSticky ? `${styles.weathercard} ${styles.stickyweathercard}` : styles.weathercard}>
           <CardBody className={styles.tablediv}>
             <p className={styles.tabletitle} style={{"background": "transparent"}}></p>
