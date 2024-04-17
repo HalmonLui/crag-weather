@@ -88,7 +88,11 @@ export default function Home() {
 
   // Function to format date without year
   function formatDate(date: Date) {
-    const options = { weekday: 'short', month: 'short', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    };
     return new Date(date).toLocaleDateString('en-US', options);
   }
 
@@ -106,7 +110,7 @@ export default function Home() {
           <Table variant='simple' size='sm'>
             <Thead>
               <Tr>
-                {weatherDataArray[0].daily.time.map((date, index) => (
+                {weatherDataArray[0].daily.time.map((date: Date, index: number) => (
                   <Th key={index}>{formatDate(date)}</Th>
                 ))}
               </Tr>

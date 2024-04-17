@@ -11,15 +11,19 @@ const WeatherTable: React.FC<WeatherTableProps> = ({
 }) => {
 
     const dates = weatherData.daily.time;
-    const maxTemperatures = weatherData.daily.temperature2mMax;
-    const minTemperatures = weatherData.daily.temperature2mMin;
-    const weatherCode = weatherData.daily.weatherCode
-    const precipitationProbabilityMax = weatherData.daily.precipitationProbabilityMax;
+    const maxTemperatures: number[] = weatherData.daily.temperature2mMax;
+    const minTemperatures: number[] = weatherData.daily.temperature2mMin;
+    const weatherCode: number[] = weatherData.daily.weatherCode
+    const precipitationProbabilityMax: number[] = weatherData.daily.precipitationProbabilityMax;
 
 
   // Function to format date without year
   function formatDate(date: Date) {
-    const options = { weekday: 'short', month: 'short', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+    };
     return new Date(date).toLocaleDateString('en-US', options);
   }
 
@@ -34,7 +38,7 @@ const WeatherTable: React.FC<WeatherTableProps> = ({
       </Thead> */}
       <Tbody>
         <Tr>
-          {Array.from(maxTemperatures).map((maxTemp, index) => (
+          {Array.from(maxTemperatures).map((maxTemp: number, index: number) => (
             <Th key={index}>
               {Math.round(maxTemp)}°| {Math.round(minTemperatures[index])}°
             </Th>
