@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Thead, Tbody, Tr, Th } from '@chakra-ui/react';
-import WeatherIcon from './WeatherIcon';
+import WeatherIcon from './weathericon';
 
 interface WeatherTableProps {
   weatherData: any;
