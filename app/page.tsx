@@ -171,6 +171,9 @@ export default function Home() {
         <WeatherTable location={"Shawangunk, NY"} weatherData={weatherDataArray[5]} />
       </>
       )}
+      <div className={styles.footer}>
+        <p>Made with 🧗 by Halmon Lui. <a href={"https://github.com/HalmonLui/crag-weather"}>Github</a></p>
+      </div>
     </main>
   );
 }

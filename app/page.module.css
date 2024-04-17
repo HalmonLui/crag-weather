@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem 20% 26rem 20%;
+  padding: 5rem 25% 26rem 25%;
   min-height: 100vh;
   overflow-x: scroll;
 }
@@ -14,7 +14,7 @@
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
-  font-size: 0.85rem;
+  font-size: 1.5rem;
   max-width: var(--max-width);
   width: 100%;
   z-index: 2;
@@ -48,7 +48,7 @@
 .stickyweathercard {
   transition: top 0.3s ease; /* Add a smooth transition for the 'top' property */
   position: fixed !important;
-  margin: .25rem calc(20% + 0.25rem) .25rem calc(20% + 0.25rem);
+  margin: .25rem calc(25% + 0.25rem) .25rem calc(25% + 0.25rem);
   top: 0;
 }
 
@@ -83,19 +83,20 @@
 }
 
 .tabletitle {
-  font-size: 12px;
+  font-size: 25px;
   width: auto;
   text-align: center;
   word-wrap: break-word;
 }
 
 .tablediv p {
-  font-size: 12px;
+  font-size: 16px;
   width: 6rem;
 }
 
 .tablediv th {
   width: 1rem;
+  font-size: 15px;
   font-weight: 450;
 }
 
@@ -109,6 +110,17 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
+}
+
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e2e8f7;
 }
 
 /* Enable hover only on non-touch devices */
@@ -155,10 +167,15 @@
     margin: 0.25rem; /* Add slight margin on mobile */
   }
 
+  .tablediv p {
+    font-size: 14px;
+  }
+
   .tablediv th,
   .tablediv td {
     padding: 4px; /* Add padding to the table cells */
     text-align: center; /* Center-align the content */
+    font-size: 11px;
   }
 
   .tablediv td {
